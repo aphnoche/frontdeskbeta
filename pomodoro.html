@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SITE Pomodoro</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:wght@200;300&family=Instrument+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <audio
+      id="alarmSound"
+      src="images/notification_sound.mp3"
+      preload="auto"
+    ></audio>
+
+    <header>
+      <a class="back" href="index.html">
+        <img class="back-arrow" src="images/arrow_forward.png" alt="" />
+        <span>Go back to Frontdesk</span>
+      </a>
+      <img class="logo" src="images/SITELogo_white.png" alt="SITE" />
+      <button
+        type="button"
+        class="fullscreen-btn"
+        id="fullscreenBtn"
+        aria-label="Toggle full screen"
+      >
+        ⛶
+      </button>
+
+      <div class="theme-wrap">
+        <button
+          type="button"
+          class="theme-btn"
+          id="themeBtn"
+          aria-label="Change theme"
+        >
+          <img src="images/palette_white.png" alt="" />
+        </button>
+        <div class="theme-menu" id="themeMenu" hidden></div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Timer -->
+      <section class="card timer-card">
+        <div class="modes" id="modes">
+          <button class="active" data-mode="pomodoro" data-min="25">
+            Pomodoro
+          </button>
+          <button data-mode="short" data-min="5">Short Break</button>
+          <button data-mode="long" data-min="15">Long Break</button>
+        </div>
+
+        <div class="session-counter" id="sessionCounter">Session 1 of 4</div>
+
+        <div class="edit-title">Edit Pomotime</div>
+        <div class="time" id="time">
+          <div class="time-col">
+            <button
+              class="adj up"
+              data-unit="min"
+              data-step="1"
+              aria-label="Add one minute"
+            >
+              +
+            </button>
+            <span id="minText">25</span>
+            <button
+              class="adj down"
+              data-unit="min"
+              data-step="-1"
+              aria-label="Subtract one minute"
+            >
+              −
+            </button>
+          </div>
+          <span>:</span>
+          <div class="time-col">
+            <button
+              class="adj up"
+              data-unit="sec"
+              data-step="5"
+              aria-label="Add five seconds"
+            >
+              +
+            </button>
+            <span id="secText">00</span>
+            <button
+              class="adj down"
+              data-unit="sec"
+              data-step="-5"
+              aria-label="Subtract five seconds"
+            >
+              −
+            </button>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button class="primary" id="startBtn">Start Focus Timer</button>
+          <button class="reset-btn" id="resetBtn" aria-label="Reset">
+            <img src="images/reset.png" alt="" />
+          </button>
+        </div>
+
+        <button class="primary" id="doneBtn" type="button">Done</button>
+
+        <label class="auto-start">
+          <input type="checkbox" id="autoStartToggle" />
+          Auto-start next session
+        </label>
+      </section>
+
+      <!-- Tasks -->
+      <section class="card task-card">
+        <div class="task-head">
+          <button class="link-btn" id="pastBtn">Past Tasks</button>
+          <button class="primary" id="addBtn">Add Task</button>
+        </div>
+
+        <ul id="taskList"></ul>
+        <p class="empty" id="empty">No tasks listed yet</p>
+      </section>
+    </main>
+
+    <div class="modal-overlay" id="taskModalOverlay" hidden>
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitleHeading"
+      >
+        <h2 id="modalTitleHeading">New Task</h2>
+
+        <div class="modal-row">
+          <div class="title-wrap">
+            <input
+              id="modalTitleInput"
+              type="text"
+              placeholder="Title"
+              maxlength="40"
+              aria-label="Task title"
+            />
+            <span class="char-count" id="modalTitleCount">0/40</span>
+          </div>
+        </div>
+
+        <input
+          id="modalSubtitleInput"
+          type="text"
+          placeholder="Subtitle (optional)"
+          maxlength="60"
+          aria-label="Task subtitle"
+        />
+
+        <div class="estimate-row">
+          <label for="modalEstimateInput">Estimated time</label>
+          <div class="estimate-inputs">
+            <input
+              id="modalEstimateInput"
+              type="text"
+              inputmode="numeric"
+              maxlength="3"
+              placeholder="25"
+              aria-label="Estimated time amount"
+            />
+            <select id="modalEstimateUnit" aria-label="Estimated time unit">
+              <option value="min">min</option>
+              <option value="hr">hr</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary" id="modalCancelBtn">
+            Cancel
+          </button>
+          <button type="button" class="primary" id="modalAddBtn">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
